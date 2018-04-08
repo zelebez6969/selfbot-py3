@@ -53,6 +53,7 @@ helpMessage =""" ༺༽།☤ⵓః•LIβΣRΔTI⌬Π•ఃⵓ☤།༼༻
 ║♪「Gcreator」
 ║♪「Say: text」
 ║♪「 Apakah text」
+║♪「 SearchMusic 」
 ║♪「 Sytr: text」
 ║♪「 Tr: text」
 ║♪「 Speed」
@@ -236,6 +237,42 @@ while True:
                                for i in gid:
                                 h += "[>] %s  \n" % (client.getGroup(i).name + " | 「Members 」: " + str(len (client.getGroup(i).members)))
                                client.sendText(msg.to, ">>>>「Group List」<<<<\n"+ h +">>>>「Total Group」 : " +str(len(gid)))
+                               
+#===================================================
+                            elif cmd.startswith("searchmusic "):
+                                sep = msg.text.split(" ")
+                                query = msg.text.replace(sep[0] + " ","")
+                                cond = query.split("|")
+                                search = str(cond[0])
+                                result = requests.get("http://api.ntcorp.us/joox/search?q={}".format(str(search)))
+                                data = result.text
+                                data = json.loads(data)
+                                if len(cond) == 1:
+                                    num = 0
+                                    ret_ = "╔══[ Result Music ]"
+                                    for music in data["result"]:
+                                        num += 1
+                                        ret_ += "\n╠ {}. {}".format(str(num), str(music["single"]))
+                                    ret_ += "\n╚══[ Total {} Music ]".format(str(len(data["result"])))
+                                    ret_ += "\n\nUntuk Melihat Details Music, silahkan gunakan command {}SearchMusic {}|「number」".format(str(setKey), str(search))
+                                    client.sendMessage(to, str(ret_))
+                                elif len(cond) == 2:
+                                    num = int(cond[1])
+                                    if num <= len(data["result"]):
+                                        music = data["result"][num - 1]
+                                        result = requests.get("http://api.ntcorp.us/joox/song_info?sid={}".format(str(music["sid"])))
+                                        data = result.text
+                                        data = json.loads(data)
+                                        if data["result"] != []:
+                                            ret_ = "╔══[ Music ]"
+                                            ret_ += "\n╠ Title : {}".format(str(data["result"]["song"]))
+                                            ret_ += "\n╠ Album : {}".format(str(data["result"]["album"]))
+                                            ret_ += "\n╠ Size : {}".format(str(data["result"]["size"]))
+                                            ret_ += "\n╠ Link : {}".format(str(data["result"]["mp3"][0]))
+                                            ret_ += "\n╚══[ Finish ]"
+                                            client.sendImageWithURL(to, str(data["result"]["img"]))
+                                            client.sendMessage(to, str(ret_))
+                                            client.sendAudioWithURL(to, str(data["result"]["mp3"][0]))                               
 #===================================================
                             elif text.lower() == 'unsend me':
                                 client.unsendMessage(msg_id)
