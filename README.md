@@ -14,7 +14,7 @@ INSTALL MODULED :
 #===========================
 `-IKUTI DI BAWAH INI-`
 
-- > git clone `https://gitlab.com/zelebez6969/selfbot-py3.git`
+- > git clone `https://github.com/zelebez6969/selfbot-py3.git`
 - > `cd selfbot-py3`
 - > `python3 sbpy3.py`
 
