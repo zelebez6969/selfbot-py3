@@ -92,7 +92,8 @@ cctv={
 }
 
 settings = {
-    "setKey":False,
+    "keyCommand": "",
+    "setKey":False
 }
 
 read = {
@@ -161,6 +162,9 @@ while True:
                 receiver = msg.to
                 to = receiver
                 sender = msg._from
+                setKey = settings["keyCommand"].title()
+                if settings["setKey"] == False:
+                    setKey = ''
                 try:
                     if msg.contentType == 0:
                         if msg.toType == 2:
