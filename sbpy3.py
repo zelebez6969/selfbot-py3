@@ -8,9 +8,9 @@ from googletrans import Translator
 from urllib.parse import urlencode
 from io import BytesIO, UnsupportedOperation
 
-client = LineClient()
+#client = LineClient()
 #client = LineClient(id='EMAILMU', passwd='PASSWORDMU')
-#client = LineClient(authToken='TOKENMU') 
+client = LineClient(authToken='ErC3VY65HRwCicyXywH3.y21GjrGfDAMOpir51SET8W.PGIaKkIhBSlKlhOkJfxQWMwcoR+z3r0K5PgyuQBqjyc=') 
 client.log("Auth Token : " + str(client.authToken))
 #========================================================
 channel = LineChannel(client)
