@@ -152,6 +152,7 @@ while True:
             if op.type == 25:
                 msg = op.message
                 text = msg.text
+                cmd = msg.text
                 msg_id = msg.id
                 receiver = msg.to
                 to = receiver
