@@ -91,6 +91,10 @@ cctv={
     "sidermem":{}
 }
 
+settings = {
+    "setKey":False,
+}
+
 read = {
     "readPoint":{},
     "readMember":{},
